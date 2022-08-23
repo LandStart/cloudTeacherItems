@@ -1,0 +1,20 @@
+
+server:
+  port: 8672
+
+spring:
+  application:
+    name: base
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+feign:
+  hystrix:
+    enabled: true
+management: ##暴露监控端点，此时curl -X POST "http://localhost:3355/actuator/refresh" 进行刷新即可同步最新配置
+  endpoints:
+    web:
+      exposure:
+        include: "*"

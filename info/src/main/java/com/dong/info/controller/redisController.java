@@ -18,7 +18,7 @@ public class redisController {
     @RequestMapping(value="/user/testGet",method= RequestMethod.GET)
     public String getname(int age ){
         stringRedisTemplate.opsForValue().set("lzj","123");
-
+        System.out.println(stringRedisTemplate.opsForValue().get("name"));
         return stringRedisTemplate.opsForValue().get("lzj");
     }
 }

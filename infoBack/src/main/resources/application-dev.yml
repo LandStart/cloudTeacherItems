@@ -1,0 +1,83 @@
+
+spring:
+  application:
+     name: info
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/userinfos?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    # 使用druid数据源
+    name: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    #连接池初始化大小,最小值,最大值,
+    initial-size: 5
+    min-idle: 5
+    max-active: 100
+    #获取连接超时时间,单位:毫秒
+    max-wait: 10000
+    #是否缓存preparedStatement,对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭
+    pool-prepared-statements: false
+    #间隔多久检测一次需要关闭的空闲连接,单位:毫秒
+    time-between-eviction-runs-millis: 10000
+    #用来检测连接是否有效的sql
+    validation-query: SELECT 1 FROM DUAL
+    #检测连接是否有效的超时时间, 单位:秒
+    validation-query-timeout: 3
+    test-while-idle: true
+    #开启此配置会降低性能
+    test-on-borrow: false
+    test-on-return: false
+    #配置监控统计filter,去掉后监控界面sql无法统计,'wall'用于防火墙
+    filters: stat
+    #配置监控统计filter的慢sql参数
+  filter:
+    stat:
+      log-slow-sql: true
+      slow-sql-millis: 80
+      merge-sql: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 50MB
+  redis:
+      ## Redis数据库索引（默认为0）
+      database: 0
+      ## Redis服务器连接端口
+      port: 6379
+      ## Redis服务器地址
+      host: 192.168.0.7
+      ## Redis服务器连接密码（默认为空）
+      password: 123456
+      jedis:
+        pool:
+          ## 连接池最大连接数（使用负值表示没有限制）
+          #spring.redis.pool.max-active=8
+          max-active: 8
+          ## 连接池最大阻塞等待时间（使用负值表示没有限制）
+          #spring.redis.pool.max-wait=-1
+          max-wait: -1
+          ## 连接池中的最大空闲连接
+          #spring.redis.pool.max-idle=8
+          max-idle: 8
+          ## 连接池中的最小空闲连接
+          #spring.redis.pool.min-idle=0
+          min-idle: 0
+      ## 连接超时时间（毫秒）
+      timeout: 1200
+      cache:
+        redis:
+          time-to-live: 1800s
+        cache-names: menus_cache
+        type: redis
+
+# mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

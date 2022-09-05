@@ -5,11 +5,11 @@ import com.dong.info.entity.User;
 import com.dong.info.feign.BaseFeign;
 import com.dong.info.service.impl.UserServiceImpl;
 import feign.Param;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -30,6 +30,13 @@ public class InforController {
 
         System.out.println("into infov service 8673" );
         return userService.selectUser(account);
+    }
+
+    @RequestMapping("/getCurrentDate")
+    public String getTime() {
+        System.out.println(Thread.currentThread().getName());
+        String name = Thread.currentThread().getName();
+        return name;
     }
 
 

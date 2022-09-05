@@ -5,4 +5,3 @@ spring:
      name: info
   profiles:
       active: dev
-

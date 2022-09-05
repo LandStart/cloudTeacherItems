@@ -7,11 +7,11 @@
           <option name="databaseVendor" value="DatabaseVendor{name='RedisDB'}" />
           <option name="defaultKeyFilter" value="*" />
           <option name="label" value="tt" />
-          <option name="password" value="" />
+          <option name="password" value="123456" />
           <option name="sercurityInfo">
             <SercurityInfo />
           </option>
-          <option name="serverUrl" value="192.168.0.7:6379" />
+          <option name="serverUrl" value="192.168.0.8:6379" />
           <option name="userName" value="" />
         </ServerConfiguration>
       </list>

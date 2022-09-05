@@ -25,7 +25,7 @@ public class infoController {
 
     @RequestMapping("/getV")
     public String getInfo() throws InterruptedException {
-        System.out.println("enter the base service getV method");
+        System.out.println("enter the base service getV method =====");
         return infoService.getInfo();
 
     }

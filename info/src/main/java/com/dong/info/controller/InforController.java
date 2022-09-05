@@ -7,14 +7,14 @@ import com.dong.info.service.impl.UserServiceImpl;
 import feign.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 public class InforController {
-
 
 
     @Autowired
@@ -28,13 +28,13 @@ public class InforController {
     @RequestMapping("/getUser")
     public List<User> getUser(@Param("account") String account) throws InterruptedException {
 
-        System.out.println("into infov service 8673" );
+        System.out.println("into infov service 8673 ---");
         return userService.selectUser(account);
     }
 
 
     @RequestMapping("/getV")
-    public String getV(){
+    public String getV() {
         System.out.println("enter the info service getV method 8673");
         return "19";
     }
@@ -46,10 +46,6 @@ public class InforController {
     public String ribbonTest() {
         return "我是服务提供者 -- 我的端口是：" + port;
     }
-
-
-
-
 
 
 }

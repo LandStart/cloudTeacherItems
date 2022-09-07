@@ -31,6 +31,9 @@ public class infoService {
     }
 
     public String serviceFallback(){
-       return "请求返回结果超过时间，请稍后";
+        /**
+         * 可替代的逻辑
+         */
+       return "请求返回结果超过时间，请稍后,";
     }
 }

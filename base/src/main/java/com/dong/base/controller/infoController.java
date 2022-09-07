@@ -2,6 +2,7 @@ package com.dong.base.controller;
 
 import com.dong.base.service.infoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 @Slf4j
+@RequestMapping("/xx")
 public class infoController {
 
 
@@ -20,15 +22,16 @@ public class infoController {
 
     @Autowired
     private RestTemplate restTemplate;
+    LogFactory factory = LogFactory.getFactory();
+
 
     private final String  URL = "http://info";
 
     @RequestMapping("/getV")
     public String getInfo() throws InterruptedException {
-        System.out.println("enter the base service getV method =====liyayi");
+        factory.getInstance(infoController.class).info("==============================enter the base service getV method =====liyayi");
         return infoService.getInfo();
-
-    }
+          }
 
     @RequestMapping("/restTemplate/testRibbon")
     public String testRibbon2() {

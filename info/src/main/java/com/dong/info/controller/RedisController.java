@@ -21,7 +21,7 @@ public class RedisController {
         String cacheName = stringRedisTemplate.opsForValue().get("name");
 
         try {
-            if(name.equals("") && name.equals(" ")){
+            if(name.equals("") && name.equals(" ") && name.equals("null")){
                 System.out.println("缓存中不存在数据");
             }
 

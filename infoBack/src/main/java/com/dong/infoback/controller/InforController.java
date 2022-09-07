@@ -30,9 +30,6 @@ public class InforController {
     @Autowired
     RestTemplate restTemplate;
 
-
-
-
     @RequestMapping("/getUser")
     public List<User> getUser(@Param("account") String account) throws InterruptedException {
        System.out.println("into infov service 8674" );

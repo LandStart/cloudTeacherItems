@@ -17,7 +17,7 @@ public class InforController {
 
 
 
-    @Autowired(required = true)
+    @Autowired
     UserServiceImpl userService;
     @Autowired
     DynamicConfigEntity dynamicConfigEntity;

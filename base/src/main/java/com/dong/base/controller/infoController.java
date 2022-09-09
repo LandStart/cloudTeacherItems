@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 public class infoController {
 
 
-    @Autowired(required = false)
+    @Autowired(required =false )
     infoService infoService;
 
     @Autowired

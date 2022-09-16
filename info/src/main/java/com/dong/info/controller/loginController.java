@@ -6,8 +6,10 @@ import com.dong.info.service.impl.UserServiceImpl;
 import feign.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+
+import java.lang.reflect.Method;
 
 @Controller
 public class loginController {
@@ -22,6 +24,13 @@ public class loginController {
         return userService.login(username,password);
 
     }
+
+    @RequestMapping("deleteUser")
+    public String deleteUser(@Param("username") String username, @Param("password") String password) throws Exception {
+        return userService.deleteUser(username,password);
+    }
+
+
 
 
     @RequestMapping("signUp")

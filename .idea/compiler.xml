@@ -8,12 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="infoback" />
+        <module name="gateway" />
         <module name="base" />
         <module name="info" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="eureka" target="8" />
+      <module name="gateway (1) (org.dong)" target="11" />
       <module name="infoBack" target="17" />
       <module name="nacos" target="1.8" />
       <module name="web" target="1.8" />
@@ -23,6 +25,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="base" options="-parameters" />
       <module name="eureka" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="info" options="-parameters" />
       <module name="infoback" options="-parameters" />
       <module name="nacos" options="-parameters" />

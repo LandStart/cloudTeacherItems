@@ -27,7 +27,6 @@ public class infoController {
     public String getInfo() throws InterruptedException {
         System.out.println("enter the base service getV method =====liyayi");
         return infoService.getInfo();
-
     }
 
     @RequestMapping("/restTemplate/testRibbon")

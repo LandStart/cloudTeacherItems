@@ -1,11 +1,14 @@
 package com.dong.info.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dong.info.entity.DynamicConfigEntity;
 import com.dong.info.entity.User;
 import com.dong.info.mapper.UserMapper;
 import com.dong.info.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
@@ -43,6 +46,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return list;
     }
 
+
+
+    public Page selectPage(Long currentPage,Integer size){
+
+        Wrapper queryWrapper = new QueryWrapper();
+
+        queryWrapper.getSqlSelect();
+        Page page = new Page();
+        page.setSize(size);
+        page.setCurrent(currentPage);
+        Page page1 = userMapper.selectPage(page, queryWrapper);
+
+
+        return  page;
+    }
     public String login(String username,String password){
 
         if(username.equals("")
@@ -107,6 +125,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         return "redirect:content.html";
     }
+
+    public String deleteUser(String username ,String password) throws Exception {
+        //根据用户名去查找这个账户，是否存在
+
+        try {
+            QueryWrapper queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", username);
+            User user = userMapper.selectOne(queryWrapper);
+
+            if (user == null) {
+                System.out.println("delete  ok");
+            }
+
+            user.setIsdelete("1");
+            userMapper.updateById(user);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+
+        return "redirect:content.html";
+    }
+
 }
 
 

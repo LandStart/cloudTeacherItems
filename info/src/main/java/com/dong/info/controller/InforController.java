@@ -5,14 +5,12 @@ import com.dong.info.entity.User;
 import com.dong.info.feign.BaseFeign;
 import com.dong.info.service.impl.UserServiceImpl;
 import feign.Param;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import java.util.Date;
 import java.util.List;
 
-@RestController
+@RestController("info")
 public class InforController {
 
 

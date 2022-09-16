@@ -42,7 +42,12 @@
             <artifactId>druid</artifactId>
             <version>1.0.18</version>
         </dependency>
-
+        <!-- obs -->
+        <dependency>
+            <groupId>com.huaweicloud</groupId>
+            <artifactId>esdk-obs-java-bundle</artifactId>
+            <version>[3.21.11,)</version>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

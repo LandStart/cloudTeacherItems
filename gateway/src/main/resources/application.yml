@@ -1,0 +1,13 @@
+server:
+  port: 8768
+spring:
+  application:
+     name: gateway
+  profiles:
+      active: dev
+  gateway:
+    routes:
+        -id: info
+        uri: lb://info
+        predicates:
+          - Path=/info/**

@@ -5,7 +5,7 @@ spring:
   #数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/userinfos?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.0.113:3306/userinfos?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
     # 使用druid数据源
@@ -47,7 +47,7 @@ spring:
       ## Redis服务器连接端口
       port: 6379
       ## Redis服务器地址
-      host: 192.168.0.8
+      host: 192.168.0.10
       ## Redis服务器连接密码（默认为空）
       password: 123456
       jedis:

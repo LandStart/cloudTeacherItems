@@ -10,6 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>gateway</module>
+        <module>base</module>
+        <module>info</module>
+        <module>infoback</module>
     </modules>
 
 

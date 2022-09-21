@@ -18,7 +18,7 @@ public class RedisController {
 
     @RequestMapping(value="/user/testGet",method= RequestMethod.GET)
     public String getname(@RequestParam("name") String name , @RequestParam("value") String value) throws Exception {
-        String cacheName = stringRedisTemplate.opsForValue().get("name");
+        String cacheName = stringRedisTemplate.opsForValue().get(name);
 
         try {
             if(name.equals("") && name.equals(" ")){

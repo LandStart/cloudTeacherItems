@@ -5,4 +5,11 @@ spring:
      name: info
   profiles:
       active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.0.8:8848
+        file-extension: yml
+      config:
+        server-addr: 192.168.0.8:8848
 

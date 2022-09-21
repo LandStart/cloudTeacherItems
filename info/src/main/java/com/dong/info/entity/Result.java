@@ -1,8 +1,5 @@
 package com.dong.info.entity;
 
-import org.springframework.stereotype.Component;
-
-
 public class Result {
 
     private String message;

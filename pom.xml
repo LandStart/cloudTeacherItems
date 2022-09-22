@@ -12,7 +12,7 @@
         <module>gateway</module>
         <module>base</module>
         <module>info</module>
-        <module>infoback</module>
+        <module>infoBack</module>
     </modules>
 
 

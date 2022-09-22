@@ -3,8 +3,6 @@ server:
 spring:
   application:
      name: gateway
-  profiles:
-      active: dev
   gateway:
     routes:
         -id: info

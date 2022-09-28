@@ -19,14 +19,7 @@ public class infoService {
            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="15000")
    })
     public String getInfo() throws InterruptedException {
-       /**
-       Random random = new Random();
-       int randI = random.nextInt(10);
-       System.out.println(randI);
-       if(randI % 2 == 0){
-           Thread.sleep(1000000);
-       }
-        **/
+
         return infoClient.getV();
     }
 

@@ -28,6 +28,13 @@ public class infoController {
     }
 
 
+    @RequestMapping(value = "/getBaseInfo",method = RequestMethod.GET)
+    public String getBaseInfo()  {
+        System.out.println("enter into this base service  ");
+        return "base info ";
+    }
+
+
 
 
     @RequestMapping("/restTemplate/testRibbon")

@@ -11,4 +11,10 @@ spring:
         server-addr: localhost:8848
         file-extension: yml
       config:
-        server-addr: localhost:8848
+        server-addr:  localhost:8848
+huawei:
+    endpoint: https://obs.cn-north-4.myhuaweicloud.com
+    url: testliudong.obs.cn-north-4.myhuaweicloud.com
+    accessKeyId: NULOVK6JBE1HY1YCPJ4V
+    accessKey: J6HqulLKHVvJ1rgVfjSrZEufb62h2PnTNxRDg8Uq
+    obsBucketName: testliudong

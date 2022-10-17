@@ -3,9 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        li {
+            list-style: none;
+        }
+        img{
+            border: 0px;
+            height: 100px;
+            width: 100px;
+        }
+        div{
+            width: 768px;
+            height: 120px;
+        }
+
+
+    </style>
 </head>
+<script>
+    var img = document.querySelector('ul').querySelectorAll('img')
+    for(var i = 0 ;i < img.length;i++){
+        img[i].onclick = function(){
+            document.body.style.backgroundImage='url('+this.src+')';
+        }
+    }
+</script>
 <body>
-<h2>welcome</h2>
+<div>
+    <ul>
+        <li><img src=images/1.jpeg> </li>
+    </ul>
+</div>
 <h3>content</h3>
 <video width="320" height="240" controls>
     <source src="movie.mp4"  type="video/mp4">
@@ -14,3 +48,6 @@
 </video>
 </body>
 </html>
+
+
+

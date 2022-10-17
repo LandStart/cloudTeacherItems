@@ -14,7 +14,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="eureka" target="8" />
+      <module name="eureka" target="1.8" />
       <module name="gateway (1) (org.dong)" target="11" />
       <module name="infoBack" target="17" />
       <module name="nacos" target="1.8" />

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -156,17 +157,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
 
-    public String getUserWithRedis(String key) throws Exception {
+    public String getUserWithRedis(String key)  throws Exception {
 
         if( key == " " && key == ""){
-            return null;
+            return "";
         }
         try{
             //先去缓存中查找
             String cacheValue = stringRedisTemplate.opsForValue().get(key);
 
             //如果命中  null != ""
-            if(  cacheValue != null ){
+            if(  cacheValue != null  ){
                 return cacheValue;
             }else  {
                 //没有命中缓存，直接去数据库查找
@@ -175,10 +176,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 User user = userMapper.selectOne(queryWrapper);
                 if (user == null) {
                     //数据库中没有这个对象
-                    return null;
+                    return "";
                 } else {
                     //查到这个对象
-                    return user.getPassword();
+                    stringRedisTemplate.opsForValue().set(user.getUsername(),user.getPassword());
+                    return user.getPassword().toString();
                 }
             }
         }catch(Exception e ){
@@ -186,15 +188,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
     }
 
+    @Transactional
     public String UpdateUserWithRedis(User user) throws Exception {
         if(user == null || user.getUsername().equals("") || user.getUsername().equals(" ") ) {
-            return null;
+            return "";
         }
         try{
 
             QueryWrapper queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("username", user.getUsername());
             User suser = userMapper.selectOne(queryWrapper);
+            user.setId(suser.getId());
+            System.out.println(suser);
             if (suser == null) {
                 //数据库中没有这个对象
                 return null;
@@ -209,14 +214,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             throw new Exception();
         }
 
-        return null;
+        return "ok";
 
     }
 
-
+    @Transactional
     public String DeleteUserWithRedis(String key) throws Exception {
         if( key.equals("") || key.equals(" ") ) {
-            return null;
+            return "";
         }
         try{
             //先去数据库删除对象
@@ -235,16 +240,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     }
 
-
+    @Transactional
     public String InsertUserWithRedis(User user) throws Exception {
         if(user == null || user.getUsername().equals("") || user.getUsername().equals(" ") ) {
-            return null;
+            return "";
         }
         try{
-            //先去数据库更新对象
-            userMapper.insert(user);
-            //去缓存中查找对象，如果存在，有可能是旧值，进行更新，没有就插入
-            stringRedisTemplate.opsForValue().set(user.getUsername(),user.getPassword());
+            QueryWrapper queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", user.getUsername());
+            User suser = userMapper.selectOne(queryWrapper);
+            if(suser == null){
+                userMapper.insert(user);
+                //去缓存中查找对象，如果存在，有可能是旧值，进行更新，没有就插入
+                stringRedisTemplate.opsForValue().set(user.getUsername(),user.getPassword());
+            }else{
+                user.setId(user.getId());
+                //先去数据库更新对象
+                userMapper.insert(user);
+                //去缓存中查找对象，如果存在，有可能是旧值，进行更新，没有就插入
+                stringRedisTemplate.opsForValue().set(user.getUsername(),user.getPassword());
+            }
+
 
         }catch (Exception e){
             throw new Exception();

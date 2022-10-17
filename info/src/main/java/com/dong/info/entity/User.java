@@ -21,29 +21,14 @@ public class User implements Serializable {
     @Generated()
     private Integer id;
 
-    /**
-     * 
-     */
     private String username;
 
-    /**
-     * 
-     */
     private String password;
 
-    /**
-     * 
-     */
     private String createtime;
 
-    /**
-     * 
-     */
     private String updatetime;
 
-    /**
-     * 
-     */
     private String isdelete;
 
     @TableField(exist = false)

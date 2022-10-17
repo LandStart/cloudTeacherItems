@@ -8,6 +8,7 @@ class InfoApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }

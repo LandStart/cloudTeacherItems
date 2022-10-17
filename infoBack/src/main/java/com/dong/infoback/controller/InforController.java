@@ -53,7 +53,6 @@ public class InforController {
     @GetMapping("/ribbonTest")
     public String ribbonTest() {
         return "我是服务提供者 -- 我的端口是：" + port;
-
     }
 
 

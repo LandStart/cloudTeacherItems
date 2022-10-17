@@ -22,7 +22,6 @@ public class loginController {
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public String login(@Param("username") String username, @Param("password") String password) throws InterruptedException {
         return userService.login(username,password);
-
     }
 
     @RequestMapping("deleteUser")

@@ -1,5 +1,6 @@
 package com.dong.info.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dong.info.entity.User;
 import com.dong.info.service.impl.UserServiceImpl;
 import feign.Param;
@@ -44,8 +45,8 @@ public class RedisController {
     }
 
     /**
-     * 用redis做高速缓存，提高查询效率
-     * 1.查询： 先去缓存查找，如果找到数据，缓存命中，直接返回，如果没有命中，则去查询数据库
+     * 用redis做缓存，提高查询效率
+     * 1.查询： 先去缓存查找，如果找到数据，缓存命中，直接返回，如果没有命中，则去查询数据库,查完之后，再讲数据放到redis中，
      * 2.更新： 先去更新数据库，然后去缓存中更新数据；
      * 3.删除：  删除数据库中的对象，然后去redis中删除；
      * 4.插入： 先将数据插入到数据库，然后再讲数据插入到缓存中；
@@ -58,12 +59,13 @@ public class RedisController {
      public String getUserWithRedis(@Param("key") String key) throws Exception {
         return userService.getUserWithRedis(key);
      }
-    //更新
+    //更新   json
     @PostMapping("/updateUser")
     public String UpdateUserWithRedis(@RequestBody User user) throws Exception {
         return userService.UpdateUserWithRedis(user);
-
     }
+
+
     //删除
     @RequestMapping("/delUser")
     public String DeleteUserWithRedis(@Param ("key") String key) throws Exception {

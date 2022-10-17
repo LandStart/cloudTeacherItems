@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URL;
+
 @RestController
 public class userController {
 
@@ -27,4 +29,5 @@ public class userController {
             return result = new Result("fail",true,null);
         }
     }
+
 }

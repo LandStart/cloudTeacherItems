@@ -8,8 +8,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 120.46.212.202:8848
-
+        server-addr: localhost:8848
 feign:
   hystrix:
     enabled: true

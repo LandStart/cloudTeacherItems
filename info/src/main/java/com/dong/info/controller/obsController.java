@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class obsController {
@@ -17,8 +19,19 @@ public class obsController {
 
 
     @RequestMapping("/obsUpload")
-    public String load(@RequestParam("name") String name){
-        return obsServiceInstance.putLocalFile( name);
+    public String load(@RequestParam("filename") String filename){
+        return obsServiceInstance.putLocalFile( filename);
+    }
+
+    @RequestMapping("/obsDownload")
+    public void getimage(@RequestParam("objectKey") String objectKey,@RequestParam("rename") String rename) throws Throwable {
+        obsServiceInstance.getimage(objectKey,rename);
+    }
+
+
+    @RequestMapping("/getList")
+    public List<List<String>> getList() throws Throwable {
+        return obsServiceInstance.getList();
     }
 
     @RequestMapping("/obsPutBytes")
@@ -27,14 +40,11 @@ public class obsController {
     }
 
     @RequestMapping("/getBytes")
-    public void getBytes() throws Throwable {
-        obsServiceInstance.getBytes();
+    public void getBytes(@RequestParam("objectKey") String objectKey) throws Throwable {
+        obsServiceInstance.getBytes(objectKey);
     }
 
-    @RequestMapping("/getimage")
-    public void getimage(@RequestParam("bucketName") String bucketName,@RequestParam("objectKey") String objectKey,@RequestParam("rename") String rename) throws Throwable {
-         obsServiceInstance.getimage(bucketName,objectKey,rename);
-    }
+
 
 
 }

@@ -22,8 +22,22 @@
             width: 768px;
             height: 120px;
         }
+        #upload{
+            border:1px solid black;
+            width: 300px;
+            margin: 5px 20px ;
+        }
+        h2,h3{
+            margin: 5px 20px ;
+        }
+        input{
+            border: 1px solid black;
+        }
+        vedio{
+            border: 1px solid black;
+            margin: 5px 20px ;
 
-
+        }
     </style>
 </head>
 <script>
@@ -35,17 +49,44 @@
     }
 </script>
 <body>
-<div>
-    <ul>
-        <li><img src=images/1.jpeg> </li>
-    </ul>
+<div id="upload" >
+       <h2>文件上传到华为云obs</h2>
+        <br>
+       <form action="http://localhost:8763/obsUpload">
+           <input type="file" id="filename" name="filename" value="上传文件">
+           <input type="submit" value="提交">
+       </form>
+
 </div>
-<h3>content</h3>
-<video width="320" height="240" controls>
+
+<div id="upload" >
+    <h2>下载文件从华为云obs</h2>
+    <a href="http://localhost:8763/getList">获取华为云特定桶对象列表</a>
+
+    <br>
+    <form action="http://localhost:8763/obsDownload">
+        对象名： <input type="text" id="objectKey" name="objectKey" >
+        <br>
+        重命名：<input type="text" id="rename" name="rename" >
+        <input type="submit" value="提交">
+    </form>
+</div>
+<div>
+    <br>
+    <form action="http://localhost:8763/obsPutBytes">
+        文本值： <input type="text" id="content" name="content" >
+        <input type="submit" value="提交">
+    </form>
+
+</div>
+<h3>vedio</h3>
+<div>
+<video id="vedio" width="320" height="240" controls>
     <source src="movie.mp4"  type="video/mp4">
     <source src="movie.ogg"  type="video/ogg">
     您的浏览器不支持 HTML5 video 标签。
 </video>
+</div>
 </body>
 </html>
 

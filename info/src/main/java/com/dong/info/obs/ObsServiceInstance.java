@@ -1,14 +1,14 @@
 package com.dong.info.obs;
 
 import com.obs.services.ObsClient;
-import com.obs.services.model.GetObjectRequest;
-import com.obs.services.model.ObsObject;
-import com.obs.services.model.PutObjectResult;
+import com.obs.services.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,14 +25,45 @@ public class ObsServiceInstance {
     @Value("${huawei.url}")
     private String url; // 访问OBS文件的url
     private ObsClient obsClient=null;
-    /**
-     * 文件上传
-     */
-    public String putLocalFile(String name)  {
-        String path="D:\\uploadHWY\\"+name;
+
+
+    public List<List<String>> getList() throws Throwable {
+
+
+        obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
+
+        // 列举桶
+        ListBucketsRequest request = new ListBucketsRequest();
+        request.setQueryLocation(true);
+        List<ObsBucket> buckets = obsClient.listBuckets(request);
+        List<List<String>> lists =new ArrayList<>();
+        for(ObsBucket bucket : buckets){
+            List<String> list = new ArrayList<>();
+            list.add(bucket.getBucketName());
+            ObjectListing result = obsClient.listObjects(bucket.getBucketName());
+            for(ObsObject obsObject : result.getObjects()){
+                list.add(obsObject.getObjectKey());
+                System.out.println("\t" + obsObject.getObjectKey());
+                System.out.println("\t" + obsObject.getOwner());
+            }
+            lists.add(list);
+
+        }
+        return lists;
+
+
+    }
+
+
+
+        /**
+         * 文件上传
+         */
+    public String putLocalFile(String filename)  {
+        String path="D:\\uploadHWY\\"+filename;
         File file=new File(path);
         UUID uuid=UUID.randomUUID();
-        String originalFileName = uuid.toString().replace("-","")+"_demo.jpg";
+        //String originalFileName = uuid.toString().replace("-","")+"_demo.jpg";
         FileInputStream fis=null;
         ObsClient obsClient =null;
         PutObjectResult putObjectResult = null;
@@ -40,7 +71,7 @@ public class ObsServiceInstance {
         try {
             fis  = new FileInputStream(file);
             obsClient = getObsClient(this.obsClient);
-            putObjectResult = obsClient.putObject(obsBucketName, originalFileName, fis);
+            putObjectResult = obsClient.putObject(obsBucketName, filename, fis);
             requestId = putObjectResult.getRequestId();
         }catch (Exception e){
             e.printStackTrace();
@@ -82,12 +113,12 @@ public class ObsServiceInstance {
      * 获取对象
      * @throws IOException
      */
-    public  void getBytes() throws Throwable {
+    public  void getBytes(String objectKey) throws Throwable {
         obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
         ByteArrayOutputStream bos = null;
         InputStream input = null;
         try{
-            ObsObject obsObject = obsClient.getObject("testliudong", "NULOVK6JBE1HY1YCPJ4V");
+            ObsObject obsObject = obsClient.getObject("testliudong", objectKey);
             // 读取对象内容
             System.out.println("Object content:");
             input = obsObject.getObjectContent();
@@ -112,7 +143,7 @@ public class ObsServiceInstance {
      *
      * @throws IOException
      */
-    public void getimage(String bucketName,String objectKey,String rename) throws Throwable {
+    public void getimage(String objectKey,String rename) throws Throwable {
 
 //      创建ObsClient实例
         obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);

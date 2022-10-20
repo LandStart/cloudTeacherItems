@@ -1,5 +1,6 @@
 package com.dong.info.controller;
 
+import com.dong.info.entity.Result;
 import com.dong.info.obs.ObsServiceInstance;
 import feign.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +20,29 @@ public class obsController {
 
 
     @RequestMapping("/obsUpload")
-    public String load(@RequestParam("filename") String filename){
+    public Result load(@RequestParam("filename") String filename) throws Throwable {
         return obsServiceInstance.putLocalFile( filename);
     }
 
-    @RequestMapping("/obsDownload")
-    public void getimage(@RequestParam("objectKey") String objectKey,@RequestParam("rename") String rename) throws Throwable {
-        obsServiceInstance.getimage(objectKey,rename);
+        @RequestMapping("/obsDownload")
+    public Result getimage(@RequestParam("objectKey") String objectKey,@RequestParam("rename") String rename) throws Throwable {
+        return obsServiceInstance.getimage(objectKey,rename);
     }
 
 
     @RequestMapping("/getList")
-    public List<List<String>> getList() throws Throwable {
+    public String getList() throws Throwable {
         return obsServiceInstance.getList();
     }
 
     @RequestMapping("/obsPutBytes")
-    public void putBytes(@RequestParam("content") String content) throws IOException {
-         obsServiceInstance.putBytes( content);
+    public Result putBytes(@RequestParam("content") String content) throws Throwable {
+         return obsServiceInstance.putBytes( content);
     }
 
     @RequestMapping("/getBytes")
-    public void getBytes(@RequestParam("objectKey") String objectKey) throws Throwable {
-        obsServiceInstance.getBytes(objectKey);
+    public Result getBytes(@RequestParam("objectKey") String objectKey) throws Throwable {
+        return  obsServiceInstance.getBytes(objectKey);
     }
 
 

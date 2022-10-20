@@ -6,6 +6,8 @@ public class Result {
     private Boolean status;
     private Object object;
 
+    public Result(){};
+
     public Result(String message, Boolean status, Object object) {
         this.message = message;
         this.status = status;

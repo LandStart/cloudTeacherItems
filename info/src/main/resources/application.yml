@@ -15,6 +15,6 @@ spring:
 huawei:
     endpoint: obs.cn-north-4.myhuaweicloud.com
     url: testliudong.obs.cn-north-4.myhuaweicloud.com
-    accessKeyId: RBBKS2CXGLPBDL0PCC3N
+    accessKeyId: RBBKS2CXGLPBDL0PCC3Na
     accessKey: Nv2xaHKmC8KsBEQG5bpuZxlv0VDHhKkNPo2fk52O
     obsBucketName: testliudong

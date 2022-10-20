@@ -9,6 +9,8 @@ import com.dong.info.entity.DynamicConfigEntity;
 import com.dong.info.entity.User;
 import com.dong.info.mapper.UserMapper;
 import com.dong.info.service.UserService;
+import com.obs.services.ObsClient;
+import com.obs.services.model.ObsObject;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -37,8 +39,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Autowired
     DynamicConfigEntity dynamicConfigEntity;
-
-
 
     @Override
     @LoadBalanced

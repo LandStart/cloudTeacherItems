@@ -1,5 +1,7 @@
 package com.dong.info.obs;
 
+import com.dong.info.entity.Result;
+import com.huaweicloud.sdk.core.utils.JsonUtils;
 import com.obs.services.ObsClient;
 import com.obs.services.model.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +29,7 @@ public class ObsServiceInstance {
     private ObsClient obsClient=null;
 
 
-    public List<List<String>> getList() throws Throwable {
+    public String getList() throws Throwable {
 
 
         obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
@@ -39,42 +41,51 @@ public class ObsServiceInstance {
         List<List<String>> lists =new ArrayList<>();
         for(ObsBucket bucket : buckets){
             List<String> list = new ArrayList<>();
-            list.add(bucket.getBucketName());
+            list.add("bucket : "+ bucket.getBucketName());
             ObjectListing result = obsClient.listObjects(bucket.getBucketName());
             for(ObsObject obsObject : result.getObjects()){
-                list.add(obsObject.getObjectKey());
+                list.add("objectKey : "+ obsObject.getObjectKey());
                 System.out.println("\t" + obsObject.getObjectKey());
                 System.out.println("\t" + obsObject.getOwner());
             }
             lists.add(list);
-
         }
-        return lists;
+
+        return  JsonUtils.toJSON(lists);
 
 
     }
 
-
-
         /**
          * 文件上传
          */
-    public String putLocalFile(String filename)  {
+    public Result putLocalFile(String filename) throws Throwable {
+        Result result = new Result();
+
         String path="D:\\uploadHWY\\"+filename;
-        File file=new File(path);
-        UUID uuid=UUID.randomUUID();
-        //String originalFileName = uuid.toString().replace("-","")+"_demo.jpg";
-        FileInputStream fis=null;
+         FileInputStream fis=null;
         ObsClient obsClient =null;
         PutObjectResult putObjectResult = null;
-        String requestId=null;
+
         try {
+            File file=new File(path);
             fis  = new FileInputStream(file);
             obsClient = getObsClient(this.obsClient);
             putObjectResult = obsClient.putObject(obsBucketName, filename, fis);
-            requestId = putObjectResult.getRequestId();
+            int statusCode = putObjectResult.getStatusCode();
+            result.setObject(putObjectResult);
+            if(statusCode == 200){
+                result.setStatus(true);
+                result.setMessage("上传成功");
+            }else{
+                if(putObjectResult != null){
+                    result.setMessage(String.valueOf(putObjectResult.getStatusCode()));
+                    result.setStatus(false);
+                }
+            }
+
         }catch (Exception e){
-            e.printStackTrace();
+           throw new Throwable("上传出错");
         }finally {
             try {
                 obsClient.close();
@@ -82,7 +93,7 @@ public class ObsServiceInstance {
                 e.printStackTrace();
             }
         }
-        return  requestId;
+        return  result;
     }
 
     /**
@@ -100,20 +111,36 @@ public class ObsServiceInstance {
     /**
      * 上传文本内容
      */
-    public  void  putBytes(String content) throws IOException {
-        // 创建ObsClient实例
-        obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
-        // 使用访问OBS
-        obsClient.putObject(obsBucketName, accessKeyId, new ByteArrayInputStream(content.getBytes()));
-        // 关闭obsClient，全局使用一个ObsClient客户端的情况下，不建议主动关闭ObsClient客户端
-        obsClient.close();
+    public  Result  putBytes(String content) throws Throwable {
+        Result result = new Result();
+
+        try{
+            // 创建ObsClient实例
+            obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
+            // 使用访问OBS
+            PutObjectResult putObjectResult = obsClient.putObject(obsBucketName, accessKeyId, new ByteArrayInputStream(content.getBytes()));
+
+            result.setStatus(true);
+            result.setMessage("上传成功");
+            result.setObject(content);
+
+        }catch (Exception e){
+            throw new Throwable("上传出错");
+        }
+        finally {
+            // 关闭obsClient，全局使用一个ObsClient客户端的情况下，不建议主动关闭ObsClient客户端
+            obsClient.close();
+        }
+
+        return result;
     }
 
     /**
      * 获取对象
      * @throws IOException
      */
-    public  void getBytes(String objectKey) throws Throwable {
+    public  Result getBytes(String objectKey) throws Throwable {
+        Result result = new Result();
         obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
         ByteArrayOutputStream bos = null;
         InputStream input = null;
@@ -130,12 +157,17 @@ public class ObsServiceInstance {
             }
 
             System.out.println(new String(bos.toByteArray()));
+            result.setObject(new String(bos.toByteArray()));
+            result.setStatus(true);
+            result.setMessage("获取成功");
         }catch (Exception e ){
             throw e.getCause();
         }finally{
             bos.close();
             input.close();
         }
+
+        return result;
     }
 
     /**
@@ -143,8 +175,8 @@ public class ObsServiceInstance {
      *
      * @throws IOException
      */
-    public void getimage(String objectKey,String rename) throws Throwable {
-
+    public Result getimage(String objectKey,String rename) throws Throwable {
+        Result result = new Result();
 //      创建ObsClient实例
         obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
         FileOutputStream outStream = null;
@@ -153,6 +185,7 @@ public class ObsServiceInstance {
 //      设置图片处理参数，对图片依次进行缩放、旋转
             request.setImageProcess("image/resize,m_fixed,w_100,h_100/rotate,90");
             ObsObject obsObject = obsClient.getObject(request);
+
             InputStream objectContent = obsObject.getObjectContent();
 
             byte[] data=readInputStream(objectContent);
@@ -160,11 +193,16 @@ public class ObsServiceInstance {
             File file=new File("D:\\downloadHYW\\"+rename);
             outStream=new FileOutputStream(file);
             outStream.write(data);
+
+            result.setStatus(true);
+            result.setMessage("下载成功");
         }catch (Exception e){
-            throw e.getCause();
+            throw new Throwable("下载出错");
         }finally{
             outStream.close();
         }
+
+        return result;
     }
 
     /**

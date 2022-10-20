@@ -53,7 +53,12 @@
        <h2>文件上传到华为云obs</h2>
         <br>
        <form action="http://localhost:8763/obsUpload">
-           <input type="file" id="filename" name="filename" value="上传文件">
+           <label>桶名：</label><select>
+               <option>b1</option>
+               <option>b2</option>
+           </select>
+
+           <input type="file" id="filename" name="filename" value="上传文件"/>
            <input type="submit" value="提交">
        </form>
 

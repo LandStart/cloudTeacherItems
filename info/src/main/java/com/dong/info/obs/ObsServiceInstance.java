@@ -70,7 +70,7 @@ public class ObsServiceInstance {
         try {
             File file=new File(path);
             fis  = new FileInputStream(file);
-            obsClient = getObsClient(this.obsClient);
+            obsClient = getObsClient(obsClient);
             putObjectResult = obsClient.putObject(obsBucketName, filename, fis);
             int statusCode = putObjectResult.getStatusCode();
             result.setObject(putObjectResult);
@@ -179,6 +179,8 @@ public class ObsServiceInstance {
         Result result = new Result();
 //      创建ObsClient实例
         obsClient = new ObsClient(accessKeyId, accessKeySecret, endpoint);
+
+
         FileOutputStream outStream = null;
         try{
             GetObjectRequest request = new GetObjectRequest("testliudong", objectKey);

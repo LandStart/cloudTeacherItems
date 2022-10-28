@@ -20,6 +20,14 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>info.xiancloud</groupId>
+            <artifactId>xian-rabbitMqClient</artifactId>
+            <version>0.3.3.3</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 
 </project>

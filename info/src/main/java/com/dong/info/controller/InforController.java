@@ -23,7 +23,7 @@ public class InforController {
     @Autowired
     BaseFeign baseFeign;
 
-    @RequestMapping("/getUser")
+    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
     public List<User> getUser(@Param("account") String account) throws InterruptedException {
 
         System.out.println("into infov service 8673" );

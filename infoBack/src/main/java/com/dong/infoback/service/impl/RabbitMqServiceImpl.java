@@ -45,6 +45,10 @@ public class RabbitMqServiceImpl implements rabbitMqService {
                         throws IOException
                 {
                     String message = new String(body, "UTF-8");
+
+
+
+
                     messagesList.add(message);
                     System.out.println(" [x] Received '" + message + "'");
                 }
@@ -60,6 +64,11 @@ public class RabbitMqServiceImpl implements rabbitMqService {
         }
 
     }
+
+    public void getString(String baseNumber){
+
+    }
+
 
 
     public static void main2(String[] args) throws IOException, TimeoutException {

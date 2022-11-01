@@ -40,25 +40,49 @@
         }
     </style>
 </head>
-<script>
-    var img = document.querySelector('ul').querySelectorAll('img')
-    for(var i = 0 ;i < img.length;i++){
-        img[i].onclick = function(){
-            document.body.style.backgroundImage='url('+this.src+')';
-        }
-    }
+<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+
+<script type="application/javascript">
+    $(function(){
+        $.ajax({
+            type:'post',
+            url:"/getbkList",
+            dataType:'json',
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            async: false,
+            cache: false,
+            success: function (data) {
+                $('#petName').append(new Option("请选择","-1"));
+
+                $.each(data,function(index,item){
+                    $('#petName').append(new Option(item.NAME,item.CODE));//往下拉菜单里添加元素
+                })
+            }
+        })
+    });
+
+
+
 </script>
+
+
 <body>
+
+
+<select id="petName" name="petName" underline="true" style="width: 100%;height: 40px">
+    <option value="-1">请选择</option>
+</select>
+<br>
+
 <div id="upload" >
        <h2>文件上传到华为云obs</h2>
         <br>
-       <form action="http://localhost:8763/obsUpload">
-           <label>桶名：</label><select>
-               <option>b1</option>
-               <option>b2</option>
-           </select>
 
+       <form action="http://localhost:8763/obsUpload">
+
+           <li><label>桶列表</label><select id="selectObj" name="sysGroupId"> </select></li>
            <input type="file" id="filename" name="filename" value="上传文件"/>
+           <input type="hidden" id="butketName" name="butketName" />
            <input type="submit" value="提交">
        </form>
 

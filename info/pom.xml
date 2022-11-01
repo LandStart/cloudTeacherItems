@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>com.huaweicloud.sdk</groupId>
-            <artifactId>huaweicloud-sdk-vpc</artifactId>
+            <artifactId>huawoeicloud-sdk-vpc</artifactId>
             <version>[3.0.40-rc, 3.1.0)</version>
         </dependency>
         <!-- obs -->

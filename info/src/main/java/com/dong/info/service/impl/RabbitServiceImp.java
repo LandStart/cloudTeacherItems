@@ -1,10 +1,7 @@
 package com.dong.info.service.impl;
 
 import com.dong.info.service.rabbitService;
-import com.rabbitmq.client.AMQP;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +35,9 @@ public class RabbitServiceImp implements rabbitService {
 
                 connection = factory.newConnection();
                 channel = connection.createChannel();
-                //channel.exchangeDeclare("","topic",true);
                 channel.queueDeclare(queueName, false, false, false, (Map) null);
+
+                channel.exchangeDeclare("testexchange",BuiltinExchangeType.TOPIC.getType());
 
                 String message = content;
                 channel.basicPublish("", queueName, (AMQP.BasicProperties) null, message.getBytes("UTF-8"));

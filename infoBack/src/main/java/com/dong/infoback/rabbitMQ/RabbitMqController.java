@@ -1,4 +1,4 @@
-package com.dong.infoback.controller;
+package com.dong.infoback.rabbitMQ;
 
 import com.dong.infoback.service.impl.RabbitMqServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;

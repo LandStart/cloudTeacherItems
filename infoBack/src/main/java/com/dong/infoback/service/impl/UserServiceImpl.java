@@ -7,9 +7,11 @@ import com.dong.infoback.entity.User;
 import com.dong.infoback.service.UserService;
 import com.dong.infoback.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
 
 
-    @Autowired
-    UserMapper userMapper;
+    @Autowired(required = false)
+    UserMapper userMappers;
 
     @Autowired
     DynamicConfigEntity dynamicConfigEntity;
@@ -35,7 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         System.out.println(dynamicConfigEntity.getVersion());
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", acccount);
-        List<User> list = userMapper.selectList(queryWrapper );
+        List<User> list = userMappers.selectList(queryWrapper );
 
         if(list == null && list.size() == 0 ){
             return list = new ArrayList<>();
@@ -57,7 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
 
-        List<User> list = userMapper.selectList(queryWrapper );
+        List<User> list = userMappers.selectList(queryWrapper );
         if(list == null && list.size() == 0 ){
             System.out.println("用户不存在");
             return "redirect:error.html";
@@ -95,13 +97,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
 
-        List<User> list = userMapper.selectList(queryWrapper );
+        List<User> list = userMappers.selectList(queryWrapper );
         if(list != null && list.size() > 0 ){
             System.out.println("用户已存在");
             return "redirect:error.html";
         }
         try {
-            userMapper.insert(user);
+            userMappers.insert(user);
         }catch (Exception e){
             throw new Exception("save error");
         }

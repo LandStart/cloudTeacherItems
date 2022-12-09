@@ -12,12 +12,8 @@
         <option value="$PROJECT_DIR$/info/pom.xml" />
         <option value="$PROJECT_DIR$/infoback/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
-      </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
         <option value="$PROJECT_DIR$/infoBack/pom.xml" />
-      </set>
+      </list>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">

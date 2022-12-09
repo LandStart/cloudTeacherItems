@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="huaweicloud-sdk-iam-3.1.13">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../soft/hauweiJarPackage/huaweicloud-sdk-iam-3.1.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../soft/hauweiJarPackage/huaweicloud-sdk-smn-3.1.13.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,5 +1,6 @@
 package com.dong.base.service;
 
+import com.rabbitmq.client.ConnectionFactory;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;

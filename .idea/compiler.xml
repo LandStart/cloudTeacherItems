@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="infoback" />
+        <module name="info (1)" />
         <module name="gateway" />
         <module name="base" />
         <module name="info" />
@@ -27,6 +28,7 @@
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="info" options="-parameters" />
+      <module name="info (1)" options="-parameters" />
       <module name="infoback" options="-parameters" />
       <module name="nacos" options="-parameters" />
       <module name="web" options="-parameters" />

@@ -1,5 +1,5 @@
 server:
-  port: 8765
+  port: 8764
 spring:
   application:
     name: info
@@ -13,7 +13,7 @@ spring:
     #Nacos配置文件读取配置
     nacos:
       config:
-        server-addr: 127.0.0.1:8848
+        server-addr: localhost:8848
         data-id: ${spring.application.name}-${spring.profiles.active}.${nacos.config.type}
         type: yaml
         auto-refresh: true
@@ -21,13 +21,13 @@ spring:
         context-path: /nacos
         file-extension: yaml
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: localhost:8848
         auto-register: true
         register:
           service-name: info
           ip: 127.0.0.1
           port: 8766
-          metadata: { group: "dev",context-path: "/nacos" }
+          metadata: { group: "public",context-path: "/nacos" }
           namespace: public
 
 

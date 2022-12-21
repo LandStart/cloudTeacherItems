@@ -25,7 +25,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
 
 
-    @Autowired(required = false)
+    @Autowired(required = true)
     UserMapper userMappers;
 
     @Autowired

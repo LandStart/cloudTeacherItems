@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        li {
+            list-style: none;
+        }
+        img{
+            border: 0px;
+            height: 100px;
+            width: 100px;
+        }
+        div{
+            width: 768px;
+            height: 120px;
+        }
+        #upload{
+            border:1px solid black;
+            width: 300px;
+            margin: 5px 20px ;
+        }
+        h2,h3{
+            margin: 5px 20px ;
+        }
+        input{
+            border: 1px solid black;
+        }
+        vedio{
+            border: 1px solid black;
+            margin: 5px 20px ;
+
+        }
+    </style>
+</head>
+<script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+
+<script type="application/javascript">
+    $(function(){
+        $.ajax({
+            type:'post',
+            url:"/getbkList",
+            dataType:'json',
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            async: false,
+            cache: false,
+            success: function (data) {
+                $('#petName').append(new Option("请选择","-1"));
+
+                $.each(data,function(index,item){
+                    $('#petName').append(new Option(item.NAME,item.CODE));//往下拉菜单里添加元素
+                })
+            }
+        })
+    });
+
+
+
+</script>
+
+
+<body>
+
+
+<select id="petName" name="petName" underline="true" style="width: 100%;height: 40px">
+    <option value="-1">请选择</option>
+</select>
+<br>
+
+<div id="upload" >
+       <h2>文件上传到华为云obs</h2>
+        <br>
+
+       <form action="http://localhost:8763/obsUpload">
+
+           <li><label>桶列表</label><select id="selectObj" name="sysGroupId"> </select></li>
+           <input type="file" id="filename" name="filename" value="上传文件"/>
+           <input type="hidden" id="butketName" name="butketName" />
+           <input type="submit" value="提交">
+       </form>
+
+</div>
+
+<div id="upload" >
+    <h2>下载文件从华为云obs</h2>
+    <a href="http://localhost:8763/getList">获取华为云特定桶对象列表</a>
+
+    <br>
+    <form action="http://localhost:8763/obsDownload">
+        对象名： <input type="text" id="objectKey" name="objectKey" >
+        <br>
+        重命名：<input type="text" id="rename" name="rename" >
+        <input type="submit" value="提交">
+    </form>
+</div>
+
+<div id="upload" >
+    <h2>ocr识别火车票</h2>
+    <br>
+    <form action="/orcticket" method="post">
+        图片地址： <input type="text" id="image" name="image" >
+        <br>
+        <input type="submit" value="提交">
+    </form>
+</div>
+
+
+<div>
+    <br>
+    <form action="http://localhost:8763/obsPutBytes">
+        文本值： <input type="text" id="content" name="content" >
+        <input type="submit" value="提交">
+    </form>
+
+</div>
+<h3>vedio</h3>
+<div>
+<video id="vedio" width="320" height="240" controls>
+    <source src="movie.mp4"  type="video/mp4">
+    <source src="movie.ogg"  type="video/ogg">
+    您的浏览器不支持 HTML5 video 标签。
+</video>
+</div>
+</body>
+</html>
+
+
+
